@@ -1,0 +1,31 @@
+ALGORITHM part1
+VAR
+    sentence : STRING;
+    nbWords: INTEGER;
+    nbVowels: INTEGER;
+    tempStr: STRING;
+    i: INTEGER;
+BEGIN 
+    Read(sentence);
+    tempStr:= "";
+    //sentence.join(" ");
+    sentence := ToUpper(sentence);
+    FOR i FROM 0 TO sentence.length-2 STEP 1 DO   // -2 because of point at the end 
+        tempStr:= tempStr + sentence[i];
+        IF (sentence[i]==" " or sentence[i]=="," and tempStr.length <> 0) THEN
+            tempStr:= ""
+            nbWords:= nbWords + 1;
+        ELSE_IF(sentence[i]=="A" or sentence[i]=="E" or sentence[i]=="Y" or sentence[i]=="O" or sentence[i]=="I" or sentence[i]=="U" or sentence[i]=="W") THEN
+            nbVowels := nbVowels + 1;
+        END_IF
+    END_FOR
+    Write("Number of vowels " + nbVowels);
+    Write("Number of words "+ nbWords);
+    /*
+        //OR using while loop 
+        WHILE(sentence[i]<> ".") DO
+            ...
+            i:=i+1;
+        END_WHILE
+    */
+END

@@ -1,0 +1,85 @@
+ALGORITHM part2
+VAR
+    sum: INTEGER;
+    distinctElements: ARRAY_OF INTEGER[16]
+    set1: array_name : ARRAY_OF INTEGER[8]
+    set2: array_name: ARRAY_OF INTEGER[8]
+    i: INTEGER;
+    j: INTEGER;
+    count: INTEGER;
+    sizeArray1: INTEGER;
+    sizeArray2: INTEGER;
+    check: BOOLEAN;
+    
+BEGIN 
+
+//user inputs array values
+    //1st set
+    REPEAT
+        Write("Enter size of first set:");
+        Read(sizeArray1);
+    UNTIL(sizeArray1<8);
+    FOR i FROM 0 to sizeArray1-1 STEP 1 DO
+        Write("Enter element of set:");
+        Read(set1[i]);
+    END_FOR
+    //2nd set
+    REPEAT
+        Write("Enter size of second set:");
+        Read(sizeArray2);
+    UNTIL(sizeArray2<8);
+    FOR i FROM 0 to sizeArray2-1 STEP 1 DO
+        Write("Enter element of set:");
+        Read(set2[i]);
+    END_FOR
+
+
+//creating distinct elements array
+
+    //looping through array1
+    count:= 0;
+    FOR i FROM 0 TO sizeArray1 STEP 1 DO
+        check:= true;
+        FOR j FROM 0 TO sizeArray2 STEP 1 DO
+            IF (set1[i]=set2[j])
+                check:= false;
+                BREAK;
+            END_IF
+        END_FOR
+        IF (check = true) THEN
+            distinctElements[count]:= set1[i];
+            count:= count + 1;
+        END_IF
+    END_FOR
+
+    //looping through array2
+    FOR i FROM 0 to sizeArray2 STEP 1 DO
+        check:= true;
+        FOR j FROM 0 TO count DO
+            IF (set2[i]=distinctElements[j])
+                check:= false;
+                BREAK;
+            END_IF
+        END_FOR
+        IF (check = true) THEN
+            distinctElements[count]:= set2[i];
+            count:= count + 1;
+        END_IF
+    END_FOR
+
+//compute the sum & print the output 
+    sum := 0;
+    IF (count <> 0) THEN
+        Write("(distinct elements " + distinctElements[0]);
+        FOR i FROM 1 TO count-1 STEP 1 DO
+            sum:= sum + distinctElements[i];
+            Write(", ")
+            Write(distinctElements[i]);
+        END_FOR
+        Write(")");
+    ELSE THEN
+        Write("(no distinct elements)");
+    END_IF
+    Write("SUM = "+sum);
+
+END
